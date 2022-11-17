@@ -1,0 +1,47 @@
+version: '3.4'
+
+volumes:
+
+  recipes.data:
+  images.data:
+  metadata.data:
+
+services:
+
+  famecipe.portal:
+    image: famecipe.portal:1.0.0
+    ports:
+      - "80:80"
+
+  famecipe.microservice.images:
+    image: famecipe.microservice.images:1.0.0
+    volumes:
+      - images.data:/home
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      #- IMAGES_DATA_SOURCE=/home/Image
+      - PORTAL_URL=http://localhost
+    ports:
+      - "58363:5000"
+
+  famecipe.microservice.metadata:
+    image: famecipe.microservice.metadata:1.0.0
+    volumes:
+      - metadata.data:/home
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - METADATA_DATA_SOURCE=/home/Metadata.db
+      - PORTAL_URL=http://localhost
+    ports:
+      - "58362:5000"
+
+  famecipe.microservice.recipes:
+    image: famecipe.microservice.recipes:1.0.0
+    volumes:
+      - recipes.data:/home
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - RECIPES_DATA_SOURCE=/home/Recipe.db
+      - PORTAL_URL=http://localhost
+    ports:
+      - "58361:5000"
