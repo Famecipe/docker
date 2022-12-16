@@ -9,12 +9,12 @@ volumes:
 services:
 
   famecipe.portal:
-    image: famecipe.portal:1.0.0
+    image: ghcr.io/famecipe/portal/famecipe.portal:1.0.0
     ports:
       - "80:80"
 
   famecipe.microservice.images:
-    image: famecipe.microservice.images:1.0.0
+    image: ghcr.io/famecipe/microservice-images/famecipe.microservice.images:1.0.0
     volumes:
       - images.data:/home
     environment:
@@ -25,7 +25,7 @@ services:
       - "58363:5000"
 
   famecipe.microservice.metadata:
-    image: famecipe.microservice.metadata:1.0.0
+    image: ghcr.io/famecipe/microservice-metadata/famecipe.microservice.metadata:1.0.0
     volumes:
       - metadata.data:/home
     environment:
@@ -36,7 +36,7 @@ services:
       - "58362:5000"
 
   famecipe.microservice.recipes:
-    image: famecipe.microservice.recipes:1.0.0
+    image: ghcr.io/famecipe/microservice-recipes/famecipe.microservice.recipes:1.0.0
     volumes:
       - recipes.data:/home
     environment:
